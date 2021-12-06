@@ -29,9 +29,18 @@ func main() {
 	log.Println("Pinged the database")
 }
 
+// deleteARow deletes a row with the specified constraints
 // `delete from users where id = $1`
+func deleteARow(conn *sql.DB, query string, values ...string) error {
+	_, err := conn.Query(query, values)
+	if err != nil {
+		return err
+	}
 
-// findARow
+	return nil
+}
+
+// findARow finds a row with the specified constraints
 // `select id, first_name, last_name from users where id = $1`
 func findARow(conn *sql.DB, query string, values ...string) error {
 	var id int
